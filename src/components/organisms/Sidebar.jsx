@@ -2,14 +2,15 @@ import { NavLink } from "react-router-dom";
 import ApperIcon from "@/components/ApperIcon";
 
 const Sidebar = () => {
-  const navigationItems = [
-    { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
-    { name: "Farms", href: "/farms", icon: "MapPin" },
-    { name: "Crops", href: "/crops", icon: "Sprout" },
-    { name: "Tasks", href: "/tasks", icon: "CheckSquare" },
-    { name: "Finance", href: "/finance", icon: "DollarSign" },
-    { name: "Weather", href: "/weather", icon: "Cloud" },
-  ];
+const navigationItems = [
+{ name: "Dashboard", href: "/", icon: "LayoutDashboard" },
+{ name: "Farms", href: "/farms", icon: "MapPin" },
+{ name: "Crops", href: "/crops", icon: "Sprout" },
+{ name: "Tasks", href: "/tasks", icon: "CheckSquare" },
+{ name: "Equipment", href: "/equipment", icon: "Wrench" },
+{ name: "Finance", href: "/finance", icon: "DollarSign" },
+{ name: "Weather", href: "/weather", icon: "Cloud" },
+];
 
   return (
     <div className="w-64 bg-white shadow-lg border-r border-gray-200 h-full">

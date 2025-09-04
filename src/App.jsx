@@ -7,7 +7,7 @@ import Crops from "@/components/pages/Crops";
 import Tasks from "@/components/pages/Tasks";
 import Finance from "@/components/pages/Finance";
 import Weather from "@/components/pages/Weather";
-
+import Equipment from "@/components/pages/Equipment";
 function App() {
   return (
     <BrowserRouter>
@@ -18,8 +18,9 @@ function App() {
             <Route path="farms" element={<Farms />} />
             <Route path="crops" element={<Crops />} />
             <Route path="tasks" element={<Tasks />} />
-            <Route path="finance" element={<Finance />} />
-            <Route path="weather" element={<Weather />} />
+<Route path="finance" element={<Finance />} />
+<Route path="weather" element={<Weather />} />
+<Route path="equipment" element={<Equipment />} />
           </Route>
         </Routes>
         

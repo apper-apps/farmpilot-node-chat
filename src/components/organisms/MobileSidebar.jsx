@@ -3,14 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 
 const MobileSidebar = ({ isOpen, onClose }) => {
-  const navigationItems = [
-    { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
-    { name: "Farms", href: "/farms", icon: "MapPin" },
-    { name: "Crops", href: "/crops", icon: "Sprout" },
-    { name: "Tasks", href: "/tasks", icon: "CheckSquare" },
-    { name: "Finance", href: "/finance", icon: "DollarSign" },
-    { name: "Weather", href: "/weather", icon: "Cloud" },
-  ];
+const navigationItems = [
+{ name: "Dashboard", href: "/", icon: "LayoutDashboard" },
+{ name: "Farms", href: "/farms", icon: "MapPin" },
+{ name: "Crops", href: "/crops", icon: "Sprout" },
+{ name: "Tasks", href: "/tasks", icon: "CheckSquare" },
+{ name: "Equipment", href: "/equipment", icon: "Wrench" },
+{ name: "Finance", href: "/finance", icon: "DollarSign" },
+{ name: "Weather", href: "/weather", icon: "Cloud" },
+];
 
   return (
     <AnimatePresence>
