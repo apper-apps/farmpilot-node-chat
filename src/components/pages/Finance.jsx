@@ -11,6 +11,7 @@ import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
 import TransactionList from "@/components/organisms/TransactionList";
+import ExportDialog from "@/components/organisms/ExportDialog";
 import transactionService from "@/services/api/transactionService";
 import farmService from "@/services/api/farmService";
 
@@ -185,7 +186,7 @@ const TransactionModal = ({ isOpen, onClose, transaction, farms, onSave }) => {
 };
 
 const Finance = () => {
-  const [transactions, setTransactions] = useState([]);
+const [transactions, setTransactions] = useState([]);
   const [farms, setFarms] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -193,6 +194,7 @@ const Finance = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [filterType, setFilterType] = useState("all");
+  const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
 
   const loadData = async () => {
     try {
@@ -301,10 +303,16 @@ const Finance = () => {
           <h1 className="text-3xl font-bold text-primary-700">Finance</h1>
           <p className="text-gray-600 mt-1">Track your farm income and expenses</p>
         </div>
-        <Button onClick={handleAddTransaction} className="w-full sm:w-auto">
-          <ApperIcon name="Plus" className="h-5 w-5 mr-2" />
-          Add Transaction
-        </Button>
+<div className="flex flex-col sm:flex-row gap-3">
+          <Button onClick={handleAddTransaction} className="w-full sm:w-auto">
+            <ApperIcon name="Plus" className="h-5 w-5 mr-2" />
+            Add Transaction
+          </Button>
+          <Button variant="secondary" onClick={() => setIsExportDialogOpen(true)} className="w-full sm:w-auto">
+            <ApperIcon name="Download" className="h-5 w-5 mr-2" />
+            Export
+          </Button>
+        </div>
       </div>
 
       {/* Financial Summary Cards */}
@@ -425,7 +433,15 @@ const Finance = () => {
         onClose={() => setIsModalOpen(false)}
         transaction={selectedTransaction}
         farms={farms}
-        onSave={handleSaveTransaction}
+onSave={handleSaveTransaction}
+      />
+
+      {/* Export Dialog */}
+      <ExportDialog
+        isOpen={isExportDialogOpen}
+        onClose={() => setIsExportDialogOpen(false)}
+        transactions={transactions}
+        farms={farms}
       />
     </div>
   );

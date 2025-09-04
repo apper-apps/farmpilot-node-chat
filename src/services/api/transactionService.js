@@ -1,5 +1,4 @@
 import transactionsData from "@/services/mockData/transactions.json";
-
 class TransactionService {
   constructor() {
     this.transactions = [...transactionsData];
@@ -60,6 +59,25 @@ class TransactionService {
     
     this.transactions.splice(index, 1);
     return true;
+}
+
+  async exportData(startDate, endDate) {
+    const allTransactions = await this.getAll();
+    
+    if (!startDate && !endDate) {
+      return allTransactions;
+    }
+    
+    return allTransactions.filter(transaction => {
+      const transactionDate = new Date(transaction.date);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+      
+      if (start && transactionDate < start) return false;
+      if (end && transactionDate > end) return false;
+      
+      return true;
+    });
   }
 }
 
