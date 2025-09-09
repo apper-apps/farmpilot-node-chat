@@ -269,7 +269,7 @@ const [transactions, setTransactions] = useState([]);
     await loadData();
   };
 
-  if (loading) return <Loading />;
+if (loading) return <Loading />;
   if (error) return <Error title="Failed to load financial data" message={error} onRetry={loadData} />;
 
   const totalIncome = transactions
