@@ -7,7 +7,6 @@ import Badge from "@/components/atoms/Badge";
 
 const FarmCard = ({ farm, onEdit, onDelete, crops = [], index = 0 }) => {
   const activeCropsCount = crops.filter(crop => crop.farmId === farm.Id && crop.status === "Growing").length;
-  
   const handleEdit = () => {
     onEdit(farm);
   };

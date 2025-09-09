@@ -14,41 +14,43 @@ import cropService from "@/services/api/cropService";
 
 const FarmModal = ({ isOpen, onClose, farm, onSave }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    size: "",
-    sizeUnit: "acres",
-    location: ""
+    name_c: "",
+    size_c: "",
+    size_unit_c: "acres",
+    location_c: ""
   });
 
-  useEffect(() => {
+useEffect(() => {
     if (farm) {
       setFormData({
-name: farm.name,
-        size: farm.size.toString(),
-        sizeUnit: farm.sizeUnit,
-        location: farm.location
+        name_c: farm.name,
+        size_c: farm.size.toString(),
+        size_unit_c: farm.sizeUnit,
+        location_c: farm.location
       });
     } else {
       setFormData({
-        name: "",
-        size: "",
-        sizeUnit: "acres",
-        location: ""
+        name_c: "",
+        size_c: "",
+        size_unit_c: "acres",
+        location_c: ""
       });
     }
   }, [farm]);
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!formData.name.trim() || !formData.size || !formData.location.trim()) {
+    if (!formData.name_c.trim() || !formData.size_c || !formData.location_c.trim()) {
       toast.error("Please fill in all required fields");
       return;
     }
 
     const farmData = {
-      ...formData,
-      size: parseFloat(formData.size),
+      name: formData.name_c,
+      size: parseFloat(formData.size_c),
+      sizeUnit: formData.size_unit_c,
+      location: formData.location_c,
       createdAt: farm?.createdAt || new Date().toISOString()
     };
 
@@ -92,29 +94,29 @@ name: farm.name,
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <FormField
+<FormField
             label="Farm Name"
-            value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
+            value={formData.name_c}
+            onChange={(e) => setFormData({...formData, name_c: e.target.value})}
             placeholder="Enter farm name"
             required
           />
 
           <div className="grid grid-cols-2 gap-4">
-            <FormField
+<FormField
               label="Size"
               type="number"
               step="0.1"
-              value={formData.size}
-              onChange={(e) => setFormData({...formData, size: e.target.value})}
+              value={formData.size_c}
+              onChange={(e) => setFormData({...formData, size_c: e.target.value})}
               placeholder="0.0"
               required
             />
-            <FormField
+<FormField
               label="Unit"
               type="select"
-              value={formData.sizeUnit}
-              onChange={(e) => setFormData({...formData, sizeUnit: e.target.value})}
+              value={formData.size_unit_c}
+              onChange={(e) => setFormData({...formData, size_unit_c: e.target.value})}
               options={[
                 { value: "acres", label: "Acres" },
                 { value: "hectares", label: "Hectares" },
@@ -123,10 +125,10 @@ name: farm.name,
             />
           </div>
 
-          <FormField
+<FormField
             label="Location"
-            value={formData.location}
-            onChange={(e) => setFormData({...formData, location: e.target.value})}
+            value={formData.location_c}
+            onChange={(e) => setFormData({...formData, location_c: e.target.value})}
             placeholder="Enter farm location"
             required
           />
@@ -154,7 +156,7 @@ const Farms = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFarm, setSelectedFarm] = useState(null);
 
-  const loadData = async () => {
+const loadData = async () => {
     try {
       setLoading(true);
       setError("");
