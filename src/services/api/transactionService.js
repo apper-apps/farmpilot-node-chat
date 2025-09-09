@@ -1,6 +1,6 @@
 class TransactionService {
   constructor() {
-    this.tableName = 'transaction_c';
+this.tableName = 'transaction_c';
     this.apperClient = null;
     this.initializeClient();
   }
