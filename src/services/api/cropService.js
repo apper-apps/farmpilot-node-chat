@@ -189,5 +189,3 @@ class CropService {
 }
 
 export default new CropService();
-
-export default new CropService();

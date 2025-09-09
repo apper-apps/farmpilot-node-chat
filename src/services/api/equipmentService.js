@@ -254,6 +254,4 @@ class EquipmentService {
     return true;
   }
 }
-
-export default new EquipmentService();
 export default new EquipmentService();

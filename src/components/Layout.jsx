@@ -45,8 +45,9 @@ const Layout = () => {
               </div>
             </div>
             <button
-              onClick={() => {
-                const { logout } = useContext(AuthContext) || {};
+onClick={() => {
+                const authContext = useContext(AuthContext);
+                const logout = authContext?.logout;
                 logout?.();
               }}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
