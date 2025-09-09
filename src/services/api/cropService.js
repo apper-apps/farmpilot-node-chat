@@ -19,7 +19,7 @@ class CropService {
     if (!this.apperClient) this.initializeClient();
     
     const params = {
-      fields: [
+fields: [
         { field: { Name: "Id" } },
         { field: { Name: "Name" } },
         { field: { Name: "crop_type_c" } },
@@ -54,7 +54,7 @@ class CropService {
     if (!this.apperClient) this.initializeClient();
     
     const params = {
-      fields: [
+fields: [
         { field: { Name: "Id" } },
         { field: { Name: "Name" } },
         { field: { Name: "crop_type_c" } },
@@ -90,7 +90,7 @@ class CropService {
     if (!this.apperClient) this.initializeClient();
     
     const params = {
-      records: [{
+records: [{
         Name: cropData.cropType,
         crop_type_c: cropData.cropType,
         field_c: cropData.field,
@@ -132,7 +132,7 @@ class CropService {
     if (!this.apperClient) this.initializeClient();
     
     const params = {
-      records: [{
+records: [{
         Id: parseInt(id),
         Name: cropData.cropType,
         crop_type_c: cropData.cropType,
