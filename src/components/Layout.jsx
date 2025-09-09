@@ -7,6 +7,7 @@ import Sidebar from "@/components/organisms/Sidebar";
 
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const authContext = useContext(AuthContext);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -46,7 +47,6 @@ const Layout = () => {
             </div>
             <button
 onClick={() => {
-                const authContext = useContext(AuthContext);
                 const logout = authContext?.logout;
                 logout?.();
               }}
