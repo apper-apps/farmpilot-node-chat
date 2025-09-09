@@ -23,7 +23,7 @@ const FarmModal = ({ isOpen, onClose, farm, onSave }) => {
   useEffect(() => {
     if (farm) {
       setFormData({
-        name: farm.name,
+name: farm.name,
         size: farm.size.toString(),
         sizeUnit: farm.sizeUnit,
         location: farm.location

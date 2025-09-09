@@ -40,7 +40,7 @@ const Weather = () => {
   const getAgriculturalAdvice = (weather) => {
     const advice = [];
     
-    if (weather.temperature > 85) {
+if (weather.temperature > 85) {
       advice.push({ 
         type: "warning", 
         text: "High temperatures expected. Increase watering frequency.", 

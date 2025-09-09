@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "@/components/organisms/Sidebar";
-import MobileSidebar from "@/components/organisms/MobileSidebar";
+import { AuthContext } from "@/App";
 import ApperIcon from "@/components/ApperIcon";
+import MobileSidebar from "@/components/organisms/MobileSidebar";
+import Sidebar from "@/components/organisms/Sidebar";
 
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,14 +39,22 @@ const Layout = () => {
               </button>
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
-                  <ApperIcon name="Sprout" className="h-5 w-5 text-white" />
+<ApperIcon name="Sprout" className="h-5 w-5 text-white" />
                 </div>
                 <h1 className="text-xl font-bold text-primary-700">FarmPilot</h1>
               </div>
             </div>
+            <button
+              onClick={() => {
+                const { logout } = useContext(AuthContext) || {};
+                logout?.();
+              }}
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <ApperIcon name="LogOut" className="h-6 w-6 text-primary-600" />
+</button>
           </div>
         </header>
-
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
           <div className="p-4 lg:p-8">

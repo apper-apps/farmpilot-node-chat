@@ -25,7 +25,7 @@ const TaskModal = ({ isOpen, onClose, task, farms, crops, onSave }) => {
 
   useEffect(() => {
     if (task) {
-      setFormData({
+setFormData({
         farmId: task.farmId.toString(),
         cropId: task.cropId?.toString() || "",
         title: task.title,

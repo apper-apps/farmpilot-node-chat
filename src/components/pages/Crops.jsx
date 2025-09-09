@@ -26,7 +26,7 @@ const CropModal = ({ isOpen, onClose, crop, farms, onSave }) => {
   useEffect(() => {
     if (crop) {
       setFormData({
-        farmId: crop.farmId.toString(),
+farmId: crop.farmId.toString(),
         cropType: crop.cropType,
         field: crop.field,
         plantingDate: crop.plantingDate.split("T")[0],

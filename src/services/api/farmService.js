@@ -1,67 +1,175 @@
-import farmsData from "@/services/mockData/farms.json";
-
 class FarmService {
   constructor() {
-    this.farms = [...farmsData];
-    this.delay = 300;
+    this.tableName = 'farm_c';
+    this.apperClient = null;
+    this.initializeClient();
+  }
+
+  initializeClient() {
+    if (typeof window !== 'undefined' && window.ApperSDK) {
+      const { ApperClient } = window.ApperSDK;
+      this.apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+    }
   }
 
   async getAll() {
-    await new Promise(resolve => setTimeout(resolve, this.delay));
-    return [...this.farms];
+    if (!this.apperClient) this.initializeClient();
+    
+    const params = {
+      fields: [
+        { field: { Name: "Id" } },
+        { field: { Name: "Name" } },
+        { field: { Name: "name_c" } },
+        { field: { Name: "size_c" } },
+        { field: { Name: "size_unit_c" } },
+        { field: { Name: "location_c" } },
+        { field: { Name: "created_at_c" } }
+      ]
+    };
+
+    const response = await this.apperClient.fetchRecords(this.tableName, params);
+    
+    if (!response.success) {
+      throw new Error(response.message);
+    }
+
+    return (response.data || []).map(farm => ({
+      Id: farm.Id,
+      name: farm.name_c || farm.Name,
+      size: parseFloat(farm.size_c) || 0,
+      sizeUnit: farm.size_unit_c || 'acres',
+      location: farm.location_c || '',
+      createdAt: farm.created_at_c || new Date().toISOString()
+    }));
   }
 
   async getById(id) {
-    await new Promise(resolve => setTimeout(resolve, this.delay));
-    const farm = this.farms.find(f => f.Id === parseInt(id));
-    if (!farm) {
-      throw new Error("Farm not found");
+    if (!this.apperClient) this.initializeClient();
+    
+    const params = {
+      fields: [
+        { field: { Name: "Id" } },
+        { field: { Name: "Name" } },
+        { field: { Name: "name_c" } },
+        { field: { Name: "size_c" } },
+        { field: { Name: "size_unit_c" } },
+        { field: { Name: "location_c" } },
+        { field: { Name: "created_at_c" } }
+      ]
+    };
+
+    const response = await this.apperClient.getRecordById(this.tableName, id, params);
+    
+    if (!response.success) {
+      throw new Error(response.message);
     }
-    return { ...farm };
+
+    const farm = response.data;
+    return {
+      Id: farm.Id,
+      name: farm.name_c || farm.Name,
+      size: parseFloat(farm.size_c) || 0,
+      sizeUnit: farm.size_unit_c || 'acres',
+      location: farm.location_c || '',
+      createdAt: farm.created_at_c || new Date().toISOString()
+    };
   }
 
   async create(farmData) {
-    await new Promise(resolve => setTimeout(resolve, this.delay));
+    if (!this.apperClient) this.initializeClient();
     
-    const newId = Math.max(...this.farms.map(f => f.Id), 0) + 1;
-    const newFarm = {
-      Id: newId,
-      ...farmData,
-      createdAt: farmData.createdAt || new Date().toISOString()
+    const params = {
+      records: [{
+        Name: farmData.name,
+        name_c: farmData.name,
+        size_c: parseFloat(farmData.size),
+        size_unit_c: farmData.sizeUnit,
+        location_c: farmData.location,
+        created_at_c: farmData.createdAt || new Date().toISOString()
+      }]
     };
+
+    const response = await this.apperClient.createRecord(this.tableName, params);
     
-    this.farms.push(newFarm);
-    return { ...newFarm };
+    if (!response.success) {
+      throw new Error(response.message);
+    }
+
+    if (response.results && response.results.length > 0) {
+      const result = response.results[0];
+      if (result.success) {
+        const farm = result.data;
+        return {
+          Id: farm.Id,
+          name: farm.name_c || farm.Name,
+          size: parseFloat(farm.size_c) || 0,
+          sizeUnit: farm.size_unit_c || 'acres',
+          location: farm.location_c || '',
+          createdAt: farm.created_at_c || new Date().toISOString()
+        };
+      }
+    }
+    
+    throw new Error('Failed to create farm');
   }
 
   async update(id, farmData) {
-    await new Promise(resolve => setTimeout(resolve, this.delay));
+    if (!this.apperClient) this.initializeClient();
     
-    const index = this.farms.findIndex(f => f.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Farm not found");
+    const params = {
+      records: [{
+        Id: parseInt(id),
+        Name: farmData.name,
+        name_c: farmData.name,
+        size_c: parseFloat(farmData.size),
+        size_unit_c: farmData.sizeUnit,
+        location_c: farmData.location
+      }]
+    };
+
+    const response = await this.apperClient.updateRecord(this.tableName, params);
+    
+    if (!response.success) {
+      throw new Error(response.message);
+    }
+
+    if (response.results && response.results.length > 0) {
+      const result = response.results[0];
+      if (result.success) {
+        const farm = result.data;
+        return {
+          Id: farm.Id,
+          name: farm.name_c || farm.Name,
+          size: parseFloat(farm.size_c) || 0,
+          sizeUnit: farm.size_unit_c || 'acres',
+          location: farm.location_c || '',
+          createdAt: farm.created_at_c || new Date().toISOString()
+        };
+      }
     }
     
-    this.farms[index] = {
-      ...this.farms[index],
-      ...farmData,
-      Id: parseInt(id)
-    };
-    
-    return { ...this.farms[index] };
+    throw new Error('Failed to update farm');
   }
 
   async delete(id) {
-    await new Promise(resolve => setTimeout(resolve, this.delay));
+    if (!this.apperClient) this.initializeClient();
     
-    const index = this.farms.findIndex(f => f.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Farm not found");
+    const params = {
+      RecordIds: [parseInt(id)]
+    };
+
+    const response = await this.apperClient.deleteRecord(this.tableName, params);
+    
+    if (!response.success) {
+      throw new Error(response.message);
     }
-    
-    this.farms.splice(index, 1);
+
     return true;
   }
 }
 
+export default new FarmService();
 export default new FarmService();

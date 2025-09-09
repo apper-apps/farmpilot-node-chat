@@ -58,7 +58,7 @@ const Dashboard = () => {
   if (loading) return <Loading />;
   if (error) return <Error title="Dashboard Error" message={error} onRetry={loadData} />;
 
-  const activeCrops = data.crops.filter(crop => crop.status === "Growing");
+const activeCrops = data.crops.filter(crop => crop.status === "Growing");
   const upcomingTasks = data.tasks
     .filter(task => !task.completed)
     .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))

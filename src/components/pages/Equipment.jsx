@@ -32,7 +32,7 @@ const EquipmentModal = ({ isOpen, onClose, equipment, onSave, farms = [] }) => {
   useEffect(() => {
     if (equipment) {
       setFormData({
-        name: equipment.name,
+name: equipment.name,
         type: equipment.type,
         brand: equipment.brand,
         model: equipment.model,
