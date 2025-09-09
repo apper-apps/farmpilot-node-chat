@@ -7,6 +7,7 @@ const navigationItems = [
 { name: "Farms", href: "/farms", icon: "MapPin" },
 { name: "Crops", href: "/crops", icon: "Sprout" },
 { name: "Tasks", href: "/tasks", icon: "CheckSquare" },
+{ name: "Activities", href: "/activities", icon: "Activity" },
 { name: "Equipment", href: "/equipment", icon: "Wrench" },
 { name: "Finance", href: "/finance", icon: "DollarSign" },
 { name: "Weather", href: "/weather", icon: "Cloud" },
